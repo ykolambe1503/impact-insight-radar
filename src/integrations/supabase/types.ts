@@ -9,7 +9,54 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      reports: {
+        Row: {
+          average_sentiment_score: number | null
+          chatgpt_response: string | null
+          chatgpt_sentiment_score: number | null
+          claude_sentiment_score: number | null
+          created_at: string
+          gemini_sentiment_score: number | null
+          id: string
+          optimization_suggestions: string | null
+          persona: Database["public"]["Enums"]["persona_type"]
+          updated_at: string
+          user_id: string
+          visibility_status: string | null
+          website_url: string
+        }
+        Insert: {
+          average_sentiment_score?: number | null
+          chatgpt_response?: string | null
+          chatgpt_sentiment_score?: number | null
+          claude_sentiment_score?: number | null
+          created_at?: string
+          gemini_sentiment_score?: number | null
+          id?: string
+          optimization_suggestions?: string | null
+          persona: Database["public"]["Enums"]["persona_type"]
+          updated_at?: string
+          user_id: string
+          visibility_status?: string | null
+          website_url: string
+        }
+        Update: {
+          average_sentiment_score?: number | null
+          chatgpt_response?: string | null
+          chatgpt_sentiment_score?: number | null
+          claude_sentiment_score?: number | null
+          created_at?: string
+          gemini_sentiment_score?: number | null
+          id?: string
+          optimization_suggestions?: string | null
+          persona?: Database["public"]["Enums"]["persona_type"]
+          updated_at?: string
+          user_id?: string
+          visibility_status?: string | null
+          website_url?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +65,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      persona_type: "Gen Z" | "Small Business Owner" | "Tech Enthusiast"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +180,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      persona_type: ["Gen Z", "Small Business Owner", "Tech Enthusiast"],
+    },
   },
 } as const
