@@ -1,10 +1,11 @@
+
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
-import { ChevronDown, Star, CheckCircle, TrendingUp, Users, Zap, Shield, Brain, Target, ArrowRight, Globe, BarChart3, Eye, Sparkles } from 'lucide-react';
+import { ChevronDown, Star, CheckCircle, TrendingUp, Users, Zap, Shield, Brain, Target, ArrowRight, Globe, BarChart3, Eye, Sparkles, Bot } from 'lucide-react';
 
 const LandingPage = () => {
   const navigate = useNavigate();
@@ -14,6 +15,10 @@ const LandingPage = () => {
     if (website.trim()) {
       navigate(`/ai-report?website=${encodeURIComponent(website)}`);
     }
+  };
+
+  const handleGetStarted = () => {
+    navigate('/login');
   };
 
   return (
