@@ -98,47 +98,160 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Sample Dashboard Preview */}
-      <section className="px-6 py-16">
-        <div className="max-w-6xl mx-auto space-y-8">
-          <div className="text-center space-y-4">
+      {/* Dashboard Preview Section */}
+      <section className="px-6 py-20">
+        <div className="max-w-7xl mx-auto space-y-8">
+          <div className="text-center space-y-4 mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white">
-              See What You'll Get
+              Complete AI Visibility Dashboard
             </h2>
             <p className="text-gray-300 text-lg">
-              Preview of your comprehensive AI visibility dashboard
+              Monitor your performance across all major AI platforms in one place
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {dashboardPreviews.map((item, index) => (
-              <Card key={index} className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-all duration-300 hover:scale-105 group">
-                <CardHeader>
-                  <div className="flex items-center space-x-3">
-                    <div className="p-2 bg-purple-500/20 rounded-lg group-hover:bg-purple-500/30 transition-colors">
-                      <item.icon className="w-6 h-6 text-purple-400" />
+          {/* Main Dashboard Preview */}
+          <div className="grid lg:grid-cols-3 gap-6 mb-12">
+            {/* AI Visibility Score Preview */}
+            <Card className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-all duration-300">
+              <CardHeader>
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-white flex items-center">
+                    <Eye className="w-5 h-5 mr-2 text-purple-400" />
+                    AI Visibility Score
+                  </CardTitle>
+                  <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30">
+                    Live Data
+                  </Badge>
+                </div>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-white mb-2">73</div>
+                  <div className="text-gray-400 text-sm">/100 Overall Score</div>
+                </div>
+                <div className="space-y-3">
+                  {[
+                    { name: 'ChatGPT', score: 85, color: '#10b981' },
+                    { name: 'Claude', score: 78, color: '#8b5cf6' },
+                    { name: 'Gemini', score: 65, color: '#f59e0b' },
+                    { name: 'Perplexity', score: 72, color: '#06b6d4' }
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: item.color }} />
+                        <span className="text-gray-300 text-sm">{item.name}</span>
+                      </div>
+                      <span className="text-white font-semibold">{item.score}</span>
                     </div>
-                    <CardTitle className="text-white">{item.title}</CardTitle>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Traffic Estimates Preview */}
+            <Card className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center">
+                  <TrendingUp className="w-5 h-5 mr-2 text-green-400" />
+                  AI Traffic Estimates
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-white mb-2">1,247</div>
+                  <div className="text-green-400 text-sm flex items-center justify-center">
+                    <TrendingUp className="w-4 h-4 mr-1" />
+                    +12% this month
                   </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-300 mb-4">{item.description}</p>
-                  <div className="bg-slate-900/50 p-4 rounded-lg">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm text-gray-400">{item.metric}</span>
-                      <span className="text-lg font-bold text-purple-400">{item.value}</span>
-                    </div>
-                    <div className="w-full bg-slate-700 rounded-full h-2">
-                      <div 
-                        className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000"
-                        style={{ width: `${item.progress}%` }}
-                      />
-                    </div>
+                </div>
+                <div className="bg-slate-900/50 p-4 rounded-lg">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-yellow-400 font-semibold">💰 Traffic Value</span>
+                    <span className="text-white font-bold">$847/mo</span>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
+                  <p className="text-gray-400 text-xs">
+                    Based on AI-generated traffic estimates
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Platform Coverage Preview */}
+            <Card className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="text-white flex items-center">
+                  <Bot className="w-5 h-5 mr-2 text-blue-400" />
+                  Platform Coverage
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-3">
+                {[
+                  { name: 'ChatGPT', users: '122.6M', icon: '🤖' },
+                  { name: 'Claude', users: '45.2M', icon: '🧠' },
+                  { name: 'Gemini', users: '35M', icon: '💎' },
+                  { name: 'Perplexity', users: '15M', icon: '🔮' }
+                ].map((platform, index) => (
+                  <div key={index} className="flex items-center justify-between p-2 bg-slate-900/50 rounded-lg">
+                    <div className="flex items-center space-x-2">
+                      <span>{platform.icon}</span>
+                      <span className="text-gray-300">{platform.name}</span>
+                    </div>
+                    <span className="text-white font-semibold">{platform.users}</span>
+                  </div>
+                ))}
+              </CardContent>
+            </Card>
           </div>
+
+          {/* Improvement Suggestions Preview */}
+          <Card className="bg-slate-800/50 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center">
+                <Target className="w-5 h-5 mr-2 text-yellow-400" />
+                🎯 AI Optimization Recommendations
+              </CardTitle>
+              <p className="text-gray-300 text-sm mt-2">Get personalized suggestions to improve your AI visibility</p>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-2 gap-4">
+                {[
+                  {
+                    icon: <Brain className="w-5 h-5 text-purple-400" />,
+                    title: "Expand content targeting AI search queries",
+                    description: "Optimize for generative AI and conversational search patterns"
+                  },
+                  {
+                    icon: <Zap className="w-5 h-5 text-yellow-400" />,
+                    title: "Implement structured data and schema markup",
+                    description: "Help AI models better understand and cite your content"
+                  },
+                  {
+                    icon: <Eye className="w-5 h-5 text-pink-400" />,
+                    title: "Monitor AI-generated content mentions",
+                    description: "Track and respond to how AI models represent your brand"
+                  },
+                  {
+                    icon: <TrendingUp className="w-5 h-5 text-orange-400" />,
+                    title: "Create prompt-optimized content",
+                    description: "Develop content that performs well in AI model responses"
+                  }
+                ].map((suggestion, index) => (
+                  <div key={index} className="bg-slate-900/50 p-4 rounded-lg hover:bg-slate-900/70 transition-colors">
+                    <div className="flex items-center space-x-3">
+                      <div className="p-2 bg-purple-500/20 rounded-lg">
+                        {suggestion.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-white font-semibold mb-1">{suggestion.title}</h4>
+                        <p className="text-gray-400 text-sm">{suggestion.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -147,7 +260,7 @@ const LandingPage = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Why Choose <span className="text-blue-400 animate-pulse">AImpact</span>?
+              Why Choose <span className="text-blue-400 animate-pulse">AI Visibility</span>?
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
               Stay ahead of the competition with comprehensive AI visibility tracking and actionable insights.
@@ -409,7 +522,7 @@ const LandingPage = () => {
                 className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 flex-1"
               />
               <Button 
-                onClick={handleGetStarted}
+                onClick={handleRunReport}
                 className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-1"
               >
                 Start Free
