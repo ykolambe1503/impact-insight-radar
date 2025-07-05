@@ -8,6 +8,7 @@ import LandingPage from "./pages/LandingPage";
 import Index from "./pages/Index";
 import Dashboard from "./pages/Dashboard";
 import ReportDetail from "./pages/ReportDetail";
+import AIReportAnalysis from "./pages/AIReportAnalysis";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/login" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/report/:id" element={<ReportDetail />} />
+          <Route path="/ai-report" element={<AIReportAnalysis />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

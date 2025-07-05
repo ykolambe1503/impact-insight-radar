@@ -1,223 +1,144 @@
-
-import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { supabase } from "@/integrations/supabase/client";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { ArrowRight, BarChart3, TrendingUp, Shield, Sparkles, CheckCircle, Users, Zap, Eye, Target, Bot, Globe, MessageSquare, Brain } from "lucide-react";
+import React, { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { useNavigate } from 'react-router-dom';
+import { ChevronDown, Star, CheckCircle, TrendingUp, Users, Zap, Shield, Brain, Target, ArrowRight, Globe, BarChart3, Eye, Sparkles } from 'lucide-react';
 
 const LandingPage = () => {
   const navigate = useNavigate();
-  const [websiteUrl, setWebsiteUrl] = useState("");
-
-  useEffect(() => {
-    const checkUser = async () => {
-      const { data: { user } } = await supabase.auth.getUser();
-      if (user) {
-        navigate("/dashboard");
-      }
-    };
-    checkUser();
-  }, [navigate]);
-
-  const handleGetStarted = () => {
-    navigate("/login");
-  };
+  const [website, setWebsite] = useState('');
 
   const handleRunReport = () => {
-    if (websiteUrl) {
-      navigate("/login");
+    if (website.trim()) {
+      navigate(`/ai-report?website=${encodeURIComponent(website)}`);
     }
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden bg-black">
-      {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1496307653780-42ee777d4833?q=80&w=2070&auto=format&fit=crop')`,
-        }}
-      >
-        <div className="absolute inset-0 bg-black/70" />
-      </div>
-
-      {/* Navigation */}
-      <nav className="relative z-50 p-6 animate-fade-in">
-        <div className="max-w-7xl mx-auto flex justify-between items-center">
-          <div className="text-2xl font-bold text-white hover:scale-105 transition-transform duration-300">
-            AI<span className="text-blue-400">mpact</span>
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      {/* Header */}
+      <header className="relative z-50 px-6 py-4">
+        <nav className="max-w-7xl mx-auto flex items-center justify-between">
+          <div className="flex items-center space-x-2">
+            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
+              <Brain className="w-5 h-5 text-white" />
+            </div>
+            <span className="text-2xl font-bold text-white">AI Visibility</span>
           </div>
-          <Button 
-            onClick={handleGetStarted}
-            variant="outline" 
-            className="bg-white/10 border-white/20 text-white hover:bg-white/20 hover:scale-105 transition-all duration-300"
-          >
-            Sign In
-          </Button>
-        </div>
-      </nav>
+          <div className="hidden md:flex items-center space-x-8">
+            <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
+            <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</a>
+            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
+            <Button variant="outline" className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white">
+              Sign In
+            </Button>
+          </div>
+        </nav>
+      </header>
 
       {/* Hero Section */}
-      <div className="relative z-40 flex items-center justify-center min-h-[80vh] px-6">
-        <div className="max-w-4xl mx-auto text-center animate-fade-in">
-          {/* Glassy Card */}
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-12 shadow-2xl hover:bg-white/10 transition-all duration-500 transform hover:scale-[1.02]">
-            <div className="inline-flex items-center gap-2 bg-blue-500/20 border border-blue-400/30 rounded-full px-4 py-2 mb-8 animate-pulse">
-              <Sparkles className="w-4 h-4 text-blue-400 animate-spin" />
-              <span className="text-blue-300 text-sm font-medium">AI-Powered Business Intelligence</span>
-            </div>
-
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in">
-              Track Your
-              <span className="block bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent animate-gradient">
-                AI Visibility
+      <section className="relative px-6 py-20">
+        <div className="max-w-4xl mx-auto text-center space-y-8">
+          <div className="space-y-6 animate-fade-in">
+            <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 hover:bg-purple-500/30 transition-colors">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Powered by Advanced AI Analysis
+            </Badge>
+            
+            <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
+              Maximize Your
+              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent animate-gradient bg-300%">
+                {" "}AI Visibility
               </span>
             </h1>
-
-            <p className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed animate-fade-in delay-300">
-              Monitor how your business appears across AI platforms like ChatGPT, Gemini, and Claude. 
-              Get real-time sentiment analysis and optimization insights.
+            
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Discover how ChatGPT, Claude, Gemini, and other AI models perceive your website. 
+              Get actionable insights to dominate AI-powered search results.
             </p>
+          </div>
 
-            {/* CTA Input Section */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 animate-fade-in delay-500 max-w-2xl mx-auto">
-              <div className="flex-1 w-full">
+          {/* CTA Section */}
+          <div className="space-y-6 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <div className="max-w-md mx-auto space-y-4">
+              <div className="flex space-x-2">
                 <Input
                   type="url"
-                  placeholder="Enter your website URL (e.g., yoursite.com)"
-                  value={websiteUrl}
-                  onChange={(e) => setWebsiteUrl(e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-14 text-lg rounded-xl focus:bg-white/20 transition-all duration-300"
+                  placeholder="Enter your website URL..."
+                  value={website}
+                  onChange={(e) => setWebsite(e.target.value)}
+                  className="flex-1 bg-slate-800/50 border-slate-600 text-white placeholder-gray-400 focus:border-purple-500"
                 />
+                <Button 
+                  onClick={handleRunReport}
+                  size="lg" 
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 hover:scale-105 transition-all duration-300"
+                >
+                  <Brain className="w-5 h-5 mr-2" />
+                  Run Free AI Report
+                </Button>
               </div>
-              <Button 
-                onClick={handleRunReport}
-                size="lg" 
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 h-14"
-              >
-                Run Free AI Report
-                <ArrowRight className="ml-2 w-5 h-5 animate-bounce" />
-              </Button>
+              <p className="text-sm text-gray-400">
+                ✨ Free analysis • No signup required • Results in 30 seconds
+              </p>
             </div>
+          </div>
 
-            <p className="text-gray-400 text-sm animate-fade-in delay-700">
-              ✨ Free report • No signup required • Get results in 60 seconds
-            </p>
+          {/* Animated Arrow */}
+          <div className="pt-12 animate-bounce">
+            <ChevronDown className="w-8 h-8 text-purple-400 mx-auto" />
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Sample Dashboard Section */}
-      <div className="relative z-40 py-20 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 animate-fade-in">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              See Your <span className="text-blue-400 animate-pulse">AI Presence</span> in Action
+      {/* Sample Dashboard Preview */}
+      <section className="px-6 py-16">
+        <div className="max-w-6xl mx-auto space-y-8">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-white">
+              See What You'll Get
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Get comprehensive insights into how AI platforms perceive and present your business.
+            <p className="text-gray-300 text-lg">
+              Preview of your comprehensive AI visibility dashboard
             </p>
           </div>
 
-          {/* Dashboard Preview */}
-          <div className="bg-white/5 border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-500 transform hover:scale-[1.01]">
-            {/* Dashboard Header */}
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h3 className="text-2xl font-bold text-white mb-2">AI Visibility Dashboard</h3>
-                <p className="text-gray-400">Real-time monitoring across all major AI platforms</p>
-              </div>
-              <div className="bg-green-500/20 border border-green-400/30 rounded-full px-4 py-2">
-                <span className="text-green-300 text-sm font-medium">● Live Tracking</span>
-              </div>
-            </div>
-
-            {/* Dashboard Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
-              {/* Sentiment Score Card */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
-                <div className="flex items-center justify-between mb-4">
-                  <h4 className="text-lg font-semibold text-white">Overall Sentiment</h4>
-                  <TrendingUp className="w-6 h-6 text-green-400 group-hover:animate-bounce" />
-                </div>
-                <div className="text-4xl font-bold text-green-400 mb-2">8.4/10</div>
-                <p className="text-gray-400 text-sm">↑ 12% from last week</p>
-                <div className="mt-4 bg-green-400/20 rounded-full h-2">
-                  <div className="bg-green-400 h-2 rounded-full w-4/5 animate-pulse"></div>
-                </div>
-              </div>
-
-              {/* Platform Coverage */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
-                <div className="flex items-center justify-between mb-4">
-                  <h4 className="text-lg font-semibold text-white">Platform Coverage</h4>
-                  <Globe className="w-6 h-6 text-blue-400 group-hover:animate-spin" />
-                </div>
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-300">ChatGPT</span>
-                    <span className="text-green-400 font-medium">Active</span>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {dashboardPreviews.map((item, index) => (
+              <Card key={index} className="bg-slate-800/50 border-slate-700 hover:bg-slate-800/70 transition-all duration-300 hover:scale-105 group">
+                <CardHeader>
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-purple-500/20 rounded-lg group-hover:bg-purple-500/30 transition-colors">
+                      <item.icon className="w-6 h-6 text-purple-400" />
+                    </div>
+                    <CardTitle className="text-white">{item.title}</CardTitle>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-300">Gemini</span>
-                    <span className="text-green-400 font-medium">Active</span>
+                </CardHeader>
+                <CardContent>
+                  <p className="text-gray-300 mb-4">{item.description}</p>
+                  <div className="bg-slate-900/50 p-4 rounded-lg">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm text-gray-400">{item.metric}</span>
+                      <span className="text-lg font-bold text-purple-400">{item.value}</span>
+                    </div>
+                    <div className="w-full bg-slate-700 rounded-full h-2">
+                      <div 
+                        className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full transition-all duration-1000"
+                        style={{ width: `${item.progress}%` }}
+                      />
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-300">Claude</span>
-                    <span className="text-green-400 font-medium">Active</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Recent Queries */}
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
-                <div className="flex items-center justify-between mb-4">
-                  <h4 className="text-lg font-semibold text-white">Recent Queries</h4>
-                  <MessageSquare className="w-6 h-6 text-purple-400 group-hover:animate-pulse" />
-                </div>
-                <div className="text-3xl font-bold text-white mb-2">247</div>
-                <p className="text-gray-400 text-sm">mentions this month</p>
-                <div className="mt-4 flex items-center text-purple-400">
-                  <ArrowRight className="w-4 h-4 animate-bounce mr-2" />
-                  <span className="text-sm">View all queries</span>
-                </div>
-              </div>
-            </div>
-
-            {/* AI Responses Preview */}
-            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
-              <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
-                <Brain className="w-5 h-5 text-blue-400 mr-2 animate-pulse" />
-                AI Response Analysis
-              </h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white/5 rounded-xl p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-blue-400 font-medium">ChatGPT Response</span>
-                    <span className="text-green-400 text-sm">Positive (9.2/10)</span>
-                  </div>
-                  <p className="text-gray-300 text-sm italic">
-                    "This company is known for innovative solutions and excellent customer service..."
-                  </p>
-                </div>
-                <div className="bg-white/5 rounded-xl p-4">
-                  <div className="flex items-center justify-between mb-3">
-                    <span className="text-purple-400 font-medium">Claude Response</span>
-                    <span className="text-green-400 text-sm">Positive (8.7/10)</span>
-                  </div>
-                  <p className="text-gray-300 text-sm italic">
-                    "A reputable business with strong market presence and positive customer feedback..."
-                  </p>
-                </div>
-              </div>
-            </div>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Features Section */}
-      <div className="relative z-40 py-20 px-6">
+      <section className="relative z-40 py-20 px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -278,10 +199,10 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* How It Works Section */}
-      <div className="relative z-40 py-20 px-6">
+      <section className="relative z-40 py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -324,10 +245,10 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Testimonials Section */}
-      <div className="relative z-40 py-20 px-6">
+      <section className="relative z-40 py-20 px-6">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -382,10 +303,10 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Pricing Section */}
-      <div className="relative z-40 py-20 px-6">
+      <section className="relative z-40 py-20 px-6">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -464,7 +385,7 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
       {/* Bottom CTA */}
       <div className="relative z-40 pb-12">
@@ -501,5 +422,32 @@ const LandingPage = () => {
     </div>
   );
 };
+
+const dashboardPreviews = [
+  {
+    title: "AI Model Scores",
+    description: "See how each AI model rates your website across key metrics",
+    icon: BarChart3,
+    metric: "Average Score",
+    value: "8.2/10",
+    progress: 82
+  },
+  {
+    title: "Visibility Trends",
+    description: "Track your AI visibility performance over time",
+    icon: TrendingUp,
+    metric: "Growth Rate",
+    value: "+24%",
+    progress: 75
+  },
+  {
+    title: "Content Analysis",
+    description: "Detailed breakdown of content optimization opportunities",
+    icon: Eye,
+    metric: "Optimization",
+    value: "67%",
+    progress: 67
+  }
+];
 
 export default LandingPage;
