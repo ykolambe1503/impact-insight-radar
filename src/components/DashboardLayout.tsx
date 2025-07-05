@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { 
   LayoutDashboard, 
   FileText, 
@@ -10,20 +10,22 @@ import {
   Bell,
   User,
   Menu,
-  X
+  X,
+  LogOut
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const navigate = useNavigate();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const location = useLocation();
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
-    { name: 'Reports', href: '/ai-report', icon: FileText },
-    { name: 'AI Analysis', href: '/ai-analysis', icon: Bot },
+    { name: 'Reports', href: '/report-details', icon: FileText },
+    { name: 'AI Analysis', href: '/ai-report', icon: Bot },
     { name: 'Settings', href: '/settings', icon: Settings },
     { name: 'Help', href: '/help', icon: HelpCircle },
   ];
@@ -42,6 +44,35 @@ const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
                 <Bot className="w-5 h-5 text-white" />
               </div>
               <span className="text-xl font-bold text-white">AI Insights</span>
+            </div>
+            <div className="flex items-center space-x-4">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-400 hover:text-white"
+                onClick={() => navigate('/settings')}
+              >
+                <Settings className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-gray-400 hover:text-white"
+                onClick={() => navigate('/help')}
+              >
+                <HelpCircle className="w-4 h-4" />
+              </Button>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="text-red-400 hover:text-red-300"
+                onClick={() => {
+                  localStorage.removeItem('token');
+                  navigate('/login');
+                }}
+              >
+                <LogOut className="w-4 h-4" />
+              </Button>
             </div>
             <Button
               variant="ghost"

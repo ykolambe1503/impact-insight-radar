@@ -64,8 +64,9 @@ const Dashboard = () => {
             icon={Eye}
             iconColor="text-purple-400"
             description="Overall visibility across AI platforms"
+            className="bg-gradient-to-r from-purple-800/20 to-slate-900/20 border-purple-600/20 hover:bg-gradient-to-r hover:from-purple-700/20 hover:to-slate-800/20"
           >
-            <Progress value={overallScore} className="h-2" />
+            <Progress value={overallScore} className="h-2 bg-gradient-to-r from-purple-400 to-purple-500" />
           </MetricCard>
 
           <MetricCard
@@ -76,6 +77,7 @@ const Dashboard = () => {
             icon={TrendingUp}
             iconColor="text-green-400"
             description="Estimated visitors from AI citations"
+            className="bg-gradient-to-r from-green-800/20 to-slate-900/20 border-green-600/20 hover:bg-gradient-to-r hover:from-green-700/20 hover:to-slate-800/20"
           />
 
           <MetricCard
@@ -86,6 +88,7 @@ const Dashboard = () => {
             icon={Bot}
             iconColor="text-blue-400"
             description="AI platforms monitoring"
+            className="bg-gradient-to-r from-blue-800/20 to-slate-900/20 border-blue-600/20 hover:bg-gradient-to-r hover:from-blue-700/20 hover:to-slate-800/20"
           />
 
           <MetricCard
@@ -96,6 +99,7 @@ const Dashboard = () => {
             icon={Target}
             iconColor="text-yellow-400"
             description="Estimated monthly value"
+            className="bg-gradient-to-r from-yellow-800/20 to-slate-900/20 border-yellow-600/20 hover:bg-gradient-to-r hover:from-yellow-700/20 hover:to-slate-800/20"
           />
         </div>
 
@@ -114,9 +118,9 @@ const Dashboard = () => {
                 </Badge>
               </div>
             </CardHeader>
-            <CardContent>
+            <CardContent className="bg-slate-900/20 border-slate-800/20">
               <VisibilityChart data={visibilityData} type="bar" />
-            </ContentContent>
+            </CardContent>
           </Card>
 
           {/* Performance Trends */}

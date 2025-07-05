@@ -6,12 +6,16 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { BarChart, Bar, XAxis, YAxis, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, Radar, LineChart, Line } from 'recharts';
-import { CheckCircle, AlertCircle, TrendingUp, Brain, Zap, Target } from 'lucide-react';
+import { CheckCircle, AlertCircle, TrendingUp, Brain, Zap, Target, Mail, Globe, Users } from 'lucide-react';
 
 const AIReportAnalysis = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const website = searchParams.get('website') || 'your website';
+  const brandName = searchParams.get('brand') || 'Your Brand';
+  const email = searchParams.get('email') || 'your@email.com';
+  const competitorsJson = searchParams.get('competitors');
+  const competitors = competitorsJson ? JSON.parse(decodeURIComponent(competitorsJson)) : []; // Parse competitors array
   
   const [analysisStage, setAnalysisStage] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -125,8 +129,36 @@ const AIReportAnalysis = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 p-4">
-      <div className="max-w-7xl mx-auto space-y-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
+      <div className="max-w-4xl mx-auto px-6 py-8 mb-12">
+        <div className="flex flex-col items-center space-y-4">
+          <div className="flex items-center space-x-2">
+            <Brain className="w-8 h-8 text-purple-400" />
+            <h1 className="text-3xl font-bold text-white">AI Report Analysis</h1>
+          </div>
+          <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2">
+              <Globe className="w-4 h-4 text-blue-400" />
+              <span className="text-gray-300">{website}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <CheckCircle className="w-4 h-4 text-green-400" />
+              <span className="text-gray-300">{brandName}</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Mail className="w-4 h-4 text-purple-400" />
+              <span className="text-gray-300">{email}</span>
+            </div>
+            {competitors.length > 0 && (
+              <div className="flex items-center space-x-2">
+                <Users className="w-4 h-4 text-orange-400" />
+                <span className="text-gray-300">{competitors.length} Competitors</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+      <div className="max-w-7xl mx-auto space-y-8 p-4">
         {/* Header */}
         <div className="text-center space-y-4 pt-8">
           <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-500/20">

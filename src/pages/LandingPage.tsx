@@ -3,17 +3,48 @@ import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { useNavigate } from 'react-router-dom';
+import { Badge } from '@/components/ui/badge';
 import { ChevronDown, Star, CheckCircle, TrendingUp, Users, Zap, Shield, Brain, Target, ArrowRight, Globe, BarChart3, Eye, Sparkles, Bot } from 'lucide-react';
 
-const LandingPage = () => {
+interface LandingPageProps {
+  // Add any props if needed
+}
+
+const dashboardPreviews = [
+  {
+    title: "AI Model Scores",
+    description: "See how each AI model rates your website across key metrics",
+    icon: BarChart3,
+    metric: "Average Score",
+    value: "8.2/10",
+    progress: 82
+  },
+  {
+    title: "Visibility Trends",
+    description: "Track your AI visibility performance over time",
+    icon: TrendingUp,
+    metric: "Growth Rate",
+    value: "+24%",
+    progress: 75
+  },
+  {
+    title: "Content Analysis",
+    description: "Detailed breakdown of content optimization opportunities",
+    icon: Eye,
+    metric: "Optimization",
+    value: "67%",
+    progress: 67
+  }
+];
+
+const LandingPage: React.FC = () => {
   const navigate = useNavigate();
   const [website, setWebsite] = useState('');
 
   const handleRunReport = () => {
     if (website.trim()) {
-      navigate(`/ai-report?website=${encodeURIComponent(website)}`);
+      navigate(`/report-details?website=${encodeURIComponent(website)}`);
     }
   };
 
@@ -33,10 +64,10 @@ const LandingPage = () => {
             <span className="text-2xl font-bold text-white">AI Visibility</span>
           </div>
           <div className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-300 hover:text-white transition-colors">Features</a>
-            <a href="#how-it-works" className="text-gray-300 hover:text-white transition-colors">How It Works</a>
-            <a href="#pricing" className="text-gray-300 hover:text-white transition-colors">Pricing</a>
-            <Button variant="outline" className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white">
+            <a onClick={() => navigate('/features')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">Features</a>
+            <a onClick={() => navigate('/how-it-works')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">How It Works</a>
+            <a onClick={() => navigate('/pricing')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">Pricing</a>
+            <Button variant="outline" onClick={() => navigate('/login')} className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white">
               Sign In
             </Button>
           </div>
@@ -77,7 +108,22 @@ const LandingPage = () => {
                   className="flex-1 bg-slate-800/50 border-slate-600 text-white placeholder-gray-400 focus:border-purple-500"
                 />
                 <Button 
-                  onClick={handleRunReport}
+                  onClick={() => {
+                    if (!website.trim()) {
+                      alert('Please enter a website URL');
+                      return;
+                    }
+                    
+                    try {
+                      const url = new URL(website);
+                      if (!url.hostname) {
+                        throw new Error('Invalid URL');
+                      }
+                      navigate(`/report-details?website=${encodeURIComponent(website)}`);
+                    } catch (error) {
+                      alert('Please enter a valid website URL');
+                    }
+                  }}
                   size="lg" 
                   className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-6 hover:scale-105 transition-all duration-300"
                 >
@@ -540,32 +586,5 @@ const LandingPage = () => {
     </div>
   );
 };
-
-const dashboardPreviews = [
-  {
-    title: "AI Model Scores",
-    description: "See how each AI model rates your website across key metrics",
-    icon: BarChart3,
-    metric: "Average Score",
-    value: "8.2/10",
-    progress: 82
-  },
-  {
-    title: "Visibility Trends",
-    description: "Track your AI visibility performance over time",
-    icon: TrendingUp,
-    metric: "Growth Rate",
-    value: "+24%",
-    progress: 75
-  },
-  {
-    title: "Content Analysis",
-    description: "Detailed breakdown of content optimization opportunities",
-    icon: Eye,
-    metric: "Optimization",
-    value: "67%",
-    progress: 67
-  }
-];
 
 export default LandingPage;

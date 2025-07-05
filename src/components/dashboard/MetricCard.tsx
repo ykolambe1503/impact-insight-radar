@@ -12,9 +12,10 @@ interface MetricCardProps {
   iconColor?: string;
   description?: string;
   children?: React.ReactNode;
+  className?: string;
 }
 
-const MetricCard = ({ 
+export const MetricCard = ({ 
   title, 
   value, 
   change, 
@@ -22,7 +23,8 @@ const MetricCard = ({
   icon: Icon, 
   iconColor = 'text-purple-400',
   description,
-  children 
+  children,
+  className
 }: MetricCardProps) => {
   const changeColors = {
     positive: 'text-green-400',
@@ -31,7 +33,7 @@ const MetricCard = ({
   };
 
   return (
-    <Card className="bg-slate-800/60 border-slate-700 backdrop-blur-sm hover:bg-slate-800/80 transition-all duration-200">
+    <Card className={`bg-slate-800/60 border-slate-700 backdrop-blur-sm hover:bg-slate-800/80 transition-all duration-200 ${className || ''}`}>
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-sm font-medium text-gray-300">{title}</CardTitle>
         <Icon className={`h-5 w-5 ${iconColor}`} />
