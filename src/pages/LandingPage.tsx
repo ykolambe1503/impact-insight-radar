@@ -1,12 +1,14 @@
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BarChart3, TrendingUp, Shield, Sparkles, CheckCircle, Users, Zap, Eye, Target, Bot } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { ArrowRight, BarChart3, TrendingUp, Shield, Sparkles, CheckCircle, Users, Zap, Eye, Target, Bot, Globe, MessageSquare, Brain } from "lucide-react";
 
 const LandingPage = () => {
   const navigate = useNavigate();
+  const [websiteUrl, setWebsiteUrl] = useState("");
 
   useEffect(() => {
     const checkUser = async () => {
@@ -20,6 +22,12 @@ const LandingPage = () => {
 
   const handleGetStarted = () => {
     navigate("/login");
+  };
+
+  const handleRunReport = () => {
+    if (websiteUrl) {
+      navigate("/login");
+    }
   };
 
   return (
@@ -72,40 +80,136 @@ const LandingPage = () => {
               Get real-time sentiment analysis and optimization insights.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16 animate-fade-in delay-500">
+            {/* CTA Input Section */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8 animate-fade-in delay-500 max-w-2xl mx-auto">
+              <div className="flex-1 w-full">
+                <Input
+                  type="url"
+                  placeholder="Enter your website URL (e.g., yoursite.com)"
+                  value={websiteUrl}
+                  onChange={(e) => setWebsiteUrl(e.target.value)}
+                  className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 h-14 text-lg rounded-xl focus:bg-white/20 transition-all duration-300"
+                />
+              </div>
               <Button 
-                onClick={handleGetStarted}
+                onClick={handleRunReport}
                 size="lg" 
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-110 hover:-translate-y-1"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-4 text-lg font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 h-14"
               >
-                Start Tracking Now
+                Run Free AI Report
                 <ArrowRight className="ml-2 w-5 h-5 animate-bounce" />
-              </Button>
-              <Button 
-                variant="outline" 
-                size="lg"
-                className="bg-white/10 border-white/20 text-white hover:bg-white/20 px-8 py-4 text-lg rounded-xl hover:scale-105 transition-all duration-300"
-              >
-                Watch Demo
               </Button>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:scale-105 transition-all duration-300 group">
-                <BarChart3 className="w-8 h-8 text-blue-400 mb-4 mx-auto group-hover:animate-bounce" />
-                <h3 className="text-2xl font-bold text-white mb-2">3 AI Platforms</h3>
-                <p className="text-gray-400">ChatGPT, Gemini & Claude coverage</p>
+            <p className="text-gray-400 text-sm animate-fade-in delay-700">
+              ✨ Free report • No signup required • Get results in 60 seconds
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Sample Dashboard Section */}
+      <div className="relative z-40 py-20 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 animate-fade-in">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              See Your <span className="text-blue-400 animate-pulse">AI Presence</span> in Action
+            </h2>
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              Get comprehensive insights into how AI platforms perceive and present your business.
+            </p>
+          </div>
+
+          {/* Dashboard Preview */}
+          <div className="bg-white/5 border border-white/10 rounded-3xl p-8 hover:bg-white/10 transition-all duration-500 transform hover:scale-[1.01]">
+            {/* Dashboard Header */}
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h3 className="text-2xl font-bold text-white mb-2">AI Visibility Dashboard</h3>
+                <p className="text-gray-400">Real-time monitoring across all major AI platforms</p>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:scale-105 transition-all duration-300 group">
-                <TrendingUp className="w-8 h-8 text-green-400 mb-4 mx-auto group-hover:animate-bounce" />
-                <h3 className="text-2xl font-bold text-white mb-2">Real-Time</h3>
-                <p className="text-gray-400">Instant sentiment analysis</p>
+              <div className="bg-green-500/20 border border-green-400/30 rounded-full px-4 py-2">
+                <span className="text-green-300 text-sm font-medium">● Live Tracking</span>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:scale-105 transition-all duration-300 group">
-                <Shield className="w-8 h-8 text-purple-400 mb-4 mx-auto group-hover:animate-bounce" />
-                <h3 className="text-2xl font-bold text-white mb-2">Secure</h3>
-                <p className="text-gray-400">Enterprise-grade protection</p>
+            </div>
+
+            {/* Dashboard Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-8">
+              {/* Sentiment Score Card */}
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-lg font-semibold text-white">Overall Sentiment</h4>
+                  <TrendingUp className="w-6 h-6 text-green-400 group-hover:animate-bounce" />
+                </div>
+                <div className="text-4xl font-bold text-green-400 mb-2">8.4/10</div>
+                <p className="text-gray-400 text-sm">↑ 12% from last week</p>
+                <div className="mt-4 bg-green-400/20 rounded-full h-2">
+                  <div className="bg-green-400 h-2 rounded-full w-4/5 animate-pulse"></div>
+                </div>
+              </div>
+
+              {/* Platform Coverage */}
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-lg font-semibold text-white">Platform Coverage</h4>
+                  <Globe className="w-6 h-6 text-blue-400 group-hover:animate-spin" />
+                </div>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300">ChatGPT</span>
+                    <span className="text-green-400 font-medium">Active</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300">Gemini</span>
+                    <span className="text-green-400 font-medium">Active</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300">Claude</span>
+                    <span className="text-green-400 font-medium">Active</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Recent Queries */}
+              <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300 group">
+                <div className="flex items-center justify-between mb-4">
+                  <h4 className="text-lg font-semibold text-white">Recent Queries</h4>
+                  <MessageSquare className="w-6 h-6 text-purple-400 group-hover:animate-pulse" />
+                </div>
+                <div className="text-3xl font-bold text-white mb-2">247</div>
+                <p className="text-gray-400 text-sm">mentions this month</p>
+                <div className="mt-4 flex items-center text-purple-400">
+                  <ArrowRight className="w-4 h-4 animate-bounce mr-2" />
+                  <span className="text-sm">View all queries</span>
+                </div>
+              </div>
+            </div>
+
+            {/* AI Responses Preview */}
+            <div className="bg-white/5 border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all duration-300">
+              <h4 className="text-lg font-semibold text-white mb-4 flex items-center">
+                <Brain className="w-5 h-5 text-blue-400 mr-2 animate-pulse" />
+                AI Response Analysis
+              </h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="bg-white/5 rounded-xl p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-blue-400 font-medium">ChatGPT Response</span>
+                    <span className="text-green-400 text-sm">Positive (9.2/10)</span>
+                  </div>
+                  <p className="text-gray-300 text-sm italic">
+                    "This company is known for innovative solutions and excellent customer service..."
+                  </p>
+                </div>
+                <div className="bg-white/5 rounded-xl p-4">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-purple-400 font-medium">Claude Response</span>
+                    <span className="text-green-400 text-sm">Positive (8.7/10)</span>
+                  </div>
+                  <p className="text-gray-300 text-sm italic">
+                    "A reputable business with strong market presence and positive customer feedback..."
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -370,15 +474,22 @@ const LandingPage = () => {
               Ready to Optimize Your AI Presence?
             </h2>
             <p className="text-gray-300 mb-6">
-              Join businesses already tracking their AI visibility and improving their digital footprint.
+              Join thousands of businesses already tracking their AI visibility and improving their digital footprint.
             </p>
-            <Button 
-              onClick={handleGetStarted}
-              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-3 font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-1"
-            >
-              Get Started Free
-              <ArrowRight className="ml-2 w-4 h-4 animate-bounce" />
-            </Button>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-lg mx-auto">
+              <Input
+                type="url"
+                placeholder="Your website URL"
+                className="bg-white/10 border-white/20 text-white placeholder:text-gray-400 flex-1"
+              />
+              <Button 
+                onClick={handleGetStarted}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6 py-2 font-semibold rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+              >
+                Start Free
+                <ArrowRight className="ml-2 w-4 h-4 animate-bounce" />
+              </Button>
+            </div>
           </div>
         </div>
       </div>
