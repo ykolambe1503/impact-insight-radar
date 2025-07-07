@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -6,37 +5,6 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useNavigate } from 'react-router-dom';
 import { Badge } from '@/components/ui/badge';
 import { ChevronDown, Star, CheckCircle, TrendingUp, Users, Zap, Shield, Brain, Target, ArrowRight, Globe, BarChart3, Eye, Sparkles, Bot } from 'lucide-react';
-
-interface LandingPageProps {
-  // Add any props if needed
-}
-
-const dashboardPreviews = [
-  {
-    title: "AI Model Scores",
-    description: "See how each AI model rates your website across key metrics",
-    icon: BarChart3,
-    metric: "Average Score",
-    value: "8.2/10",
-    progress: 82
-  },
-  {
-    title: "Visibility Trends",
-    description: "Track your AI visibility performance over time",
-    icon: TrendingUp,
-    metric: "Growth Rate",
-    value: "+24%",
-    progress: 75
-  },
-  {
-    title: "Content Analysis",
-    description: "Detailed breakdown of content optimization opportunities",
-    icon: Eye,
-    metric: "Optimization",
-    value: "67%",
-    progress: 67
-  }
-];
 
 const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -53,27 +21,7 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
-      {/* Header */}
-      <header className="relative z-50 px-6 py-4">
-        <nav className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg flex items-center justify-center">
-              <Brain className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-2xl font-bold text-white">AI Visibility</span>
-          </div>
-          <div className="hidden md:flex items-center space-x-8">
-            <a onClick={() => navigate('/features')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">Features</a>
-            <a onClick={() => navigate('/how-it-works')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">How It Works</a>
-            <a onClick={() => navigate('/pricing')} className="text-gray-300 hover:text-white transition-colors cursor-pointer">Pricing</a>
-            <Button variant="outline" onClick={() => navigate('/login')} className="border-purple-500 text-purple-400 hover:bg-purple-500 hover:text-white">
-              Sign In
-            </Button>
-          </div>
-        </nav>
-      </header>
-
+    <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative px-6 py-20">
         <div className="max-w-4xl mx-auto text-center space-y-8">
