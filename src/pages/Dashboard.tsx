@@ -20,7 +20,12 @@ import {
   Clock,
   Users,
   Globe,
-  Calendar
+  Calendar,
+  MessageSquare,
+  BarChart3,
+  CheckCircle,
+  XCircle,
+  AlertTriangle
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -49,6 +54,58 @@ const Dashboard = () => {
     { region: 'Europe', percentage: 28, color: '#8b5cf6' },
     { region: 'Asia Pacific', percentage: 18, color: '#f59e0b' },
     { region: 'Others', percentage: 9, color: '#06b6d4' }
+  ];
+
+  // Analyzed prompts data per LLM
+  const promptAnalysisData = [
+    {
+      platform: 'ChatGPT',
+      totalPrompts: 1247,
+      categories: {
+        'Technical Questions': { count: 423, successRate: 92, avgQuality: 4.6 },
+        'Creative Writing': { count: 298, successRate: 87, avgQuality: 4.3 },
+        'Code Generation': { count: 267, successRate: 94, avgQuality: 4.7 },
+        'Data Analysis': { count: 189, successRate: 89, avgQuality: 4.4 },
+        'General Knowledge': { count: 70, successRate: 91, avgQuality: 4.5 }
+      },
+      color: '#10b981'
+    },
+    {
+      platform: 'Claude',
+      totalPrompts: 987,
+      categories: {
+        'Technical Questions': { count: 342, successRate: 90, avgQuality: 4.5 },
+        'Creative Writing': { count: 276, successRate: 93, avgQuality: 4.8 },
+        'Code Generation': { count: 198, successRate: 88, avgQuality: 4.4 },
+        'Data Analysis': { count: 134, successRate: 91, avgQuality: 4.6 },
+        'General Knowledge': { count: 37, successRate: 89, avgQuality: 4.3 }
+      },
+      color: '#8b5cf6'
+    },
+    {
+      platform: 'Gemini',
+      totalPrompts: 756,
+      categories: {
+        'Technical Questions': { count: 267, successRate: 85, avgQuality: 4.2 },
+        'Creative Writing': { count: 189, successRate: 82, avgQuality: 4.1 },
+        'Code Generation': { count: 156, successRate: 87, avgQuality: 4.3 },
+        'Data Analysis': { count: 98, successRate: 88, avgQuality: 4.4 },
+        'General Knowledge': { count: 46, successRate: 84, avgQuality: 4.0 }
+      },
+      color: '#f59e0b'
+    },
+    {
+      platform: 'Perplexity',
+      totalPrompts: 623,
+      categories: {
+        'Technical Questions': { count: 198, successRate: 88, avgQuality: 4.3 },
+        'Creative Writing': { count: 134, successRate: 79, avgQuality: 3.9 },
+        'Code Generation': { count: 112, successRate: 85, avgQuality: 4.2 },
+        'Data Analysis': { count: 89, successRate: 92, avgQuality: 4.5 },
+        'General Knowledge': { count: 90, successRate: 87, avgQuality: 4.1 }
+      },
+      color: '#06b6d4'
+    }
   ];
 
   const overallScore = Math.round(visibilityData.reduce((acc, item) => acc + item.score, 0) / visibilityData.length);
@@ -167,6 +224,82 @@ const Dashboard = () => {
             </CardContent>
           </Card>
         </div>
+
+        {/* Analyzed Prompts per LLM Section */}
+        <Card className="bg-slate-800/60 border-slate-700">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-white flex items-center">
+                <MessageSquare className="w-5 h-5 mr-2 text-cyan-400" />
+                Analyzed Prompts per LLM
+              </CardTitle>
+              <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-500/30">
+                Last 30 Days
+              </Badge>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {promptAnalysisData.map((platform, index) => (
+                <div key={index} className="bg-slate-900/50 p-6 rounded-lg">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center space-x-3">
+                      <div 
+                        className="w-4 h-4 rounded-full"
+                        style={{ backgroundColor: platform.color }}
+                      />
+                      <h3 className="text-white font-semibold text-lg">{platform.platform}</h3>
+                    </div>
+                    <div className="text-right">
+                      <div className="text-2xl font-bold text-white">{platform.totalPrompts.toLocaleString()}</div>
+                      <div className="text-xs text-gray-400">Total Prompts</div>
+                    </div>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    {Object.entries(platform.categories).map(([category, data], categoryIndex) => (
+                      <div key={categoryIndex} className="bg-slate-800/50 p-3 rounded-lg">
+                        <div className="flex items-center justify-between mb-2">
+                          <h4 className="text-sm font-medium text-gray-300">{category}</h4>
+                          <div className="flex items-center space-x-2">
+                            {data.successRate >= 90 ? (
+                              <CheckCircle className="w-4 h-4 text-green-400" />
+                            ) : data.successRate >= 80 ? (
+                              <AlertTriangle className="w-4 h-4 text-yellow-400" />
+                            ) : (
+                              <XCircle className="w-4 h-4 text-red-400" />
+                            )}
+                            <span className="text-xs text-gray-400">{data.successRate}%</span>
+                          </div>
+                        </div>
+                        
+                        <div className="grid grid-cols-3 gap-3 text-xs">
+                          <div>
+                            <div className="text-white font-semibold">{data.count}</div>
+                            <div className="text-gray-400">Prompts</div>
+                          </div>
+                          <div>
+                            <div className="text-white font-semibold">{data.successRate}%</div>
+                            <div className="text-gray-400">Success Rate</div>
+                          </div>
+                          <div>
+                            <div className="text-white font-semibold">{data.avgQuality}/5</div>
+                            <div className="text-gray-400">Avg Quality</div>
+                          </div>
+                        </div>
+                        
+                        <Progress 
+                          value={data.successRate} 
+                          className="h-1 mt-2" 
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Geographic Distribution & Recent Activity */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
