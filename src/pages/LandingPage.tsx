@@ -21,9 +21,9 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-transparent">
       {/* Hero Section */}
-      <section className="relative px-6 py-20">
+      <section className="relative px-6 py-20 bg-transparent">
         <div className="max-w-4xl mx-auto text-center space-y-8">
           <div className="space-y-6 animate-fade-in">
             <Badge className="bg-purple-500/20 text-purple-300 border-purple-500/30 hover:bg-purple-500/30 transition-colors">
@@ -93,7 +93,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Dashboard Preview Section */}
-      <section className="px-6 py-20">
+      <section className="px-6 py-20 bg-transparent">
         <div className="max-w-7xl mx-auto space-y-8">
           <div className="text-center space-y-4 mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-white">
@@ -250,7 +250,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Features Section */}
-      <section className="relative z-40 py-20 px-6">
+      <section className="relative z-40 py-20 px-6 bg-transparent">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -314,7 +314,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="relative z-40 py-20 px-6">
+      <section className="relative z-40 py-20 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -360,7 +360,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="relative z-40 py-20 px-6">
+      <section className="relative z-40 py-20 px-6 bg-transparent">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -418,7 +418,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Pricing Section */}
-      <section className="relative z-40 py-20 px-6">
+      <section className="relative z-40 py-20 px-6 bg-transparent">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-16 animate-fade-in">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
@@ -500,7 +500,7 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Bottom CTA */}
-      <div className="relative z-40 pb-12">
+      <div className="relative z-40 pb-12 bg-transparent">
         <div className="max-w-2xl mx-auto text-center px-6">
           <div className="bg-white/5 border border-white/10 rounded-2xl p-8 hover:bg-white/10 hover:scale-105 transition-all duration-300 transform hover:-translate-y-2">
             <h2 className="text-3xl font-bold text-white mb-4">
