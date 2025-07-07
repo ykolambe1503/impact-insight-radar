@@ -16,7 +16,11 @@ import {
   AlertCircle,
   ArrowUpRight,
   Brain,
-  Zap
+  Zap,
+  Clock,
+  Users,
+  Globe,
+  Calendar
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -26,6 +30,25 @@ const Dashboard = () => {
     { name: 'Gemini', score: 72, color: '#f59e0b' },
     { name: 'Perplexity', score: 65, color: '#06b6d4' },
     { name: 'Groq', score: 58, color: '#ef4444' }
+  ];
+
+  // Weekly performance trend data
+  const weeklyTrendData = [
+    { name: 'Mon', visibility: 72, traffic: 45, citations: 12 },
+    { name: 'Tue', visibility: 75, traffic: 52, citations: 15 },
+    { name: 'Wed', visibility: 78, traffic: 61, citations: 18 },
+    { name: 'Thu', visibility: 82, traffic: 68, citations: 22 },
+    { name: 'Fri', visibility: 85, traffic: 74, citations: 25 },
+    { name: 'Sat', visibility: 80, traffic: 58, citations: 20 },
+    { name: 'Sun', visibility: 77, traffic: 48, citations: 16 }
+  ];
+
+  // Geographic distribution data
+  const geographicData = [
+    { region: 'North America', percentage: 45, color: '#10b981' },
+    { region: 'Europe', percentage: 28, color: '#8b5cf6' },
+    { region: 'Asia Pacific', percentage: 18, color: '#f59e0b' },
+    { region: 'Others', percentage: 9, color: '#06b6d4' }
   ];
 
   const overallScore = Math.round(visibilityData.reduce((acc, item) => acc + item.score, 0) / visibilityData.length);
@@ -49,6 +72,14 @@ const Dashboard = () => {
       priority: "High",
       impact: 68
     }
+  ];
+
+  // Recent activity data
+  const recentActivity = [
+    { platform: 'ChatGPT', action: 'New citation', time: '2 hours ago', type: 'positive' },
+    { platform: 'Claude', action: 'Ranking improved', time: '5 hours ago', type: 'positive' },
+    { platform: 'Gemini', action: 'Content indexed', time: '1 day ago', type: 'neutral' },
+    { platform: 'Perplexity', action: 'Visibility drop', time: '2 days ago', type: 'negative' }
   ];
 
   return (
@@ -105,7 +136,7 @@ const Dashboard = () => {
 
         {/* Charts Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Visibility Breakdown */}
+          {/* Platform Visibility Breakdown */}
           <Card className="bg-slate-800/60 border-slate-700">
             <CardHeader>
               <div className="flex items-center justify-between">
@@ -118,21 +149,84 @@ const Dashboard = () => {
                 </Badge>
               </div>
             </CardHeader>
-            <CardContent className="bg-slate-900/20 border-slate-800/20">
+            <CardContent>
               <VisibilityChart data={visibilityData} type="bar" />
             </CardContent>
           </Card>
 
-          {/* Performance Trends */}
+          {/* Weekly Performance Trends */}
           <Card className="bg-slate-800/60 border-slate-700">
             <CardHeader>
               <CardTitle className="text-white flex items-center">
                 <TrendingUp className="w-5 h-5 mr-2 text-green-400" />
-                Performance Overview
+                Weekly Performance
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <VisibilityChart data={visibilityData} type="pie" />
+              <VisibilityChart data={weeklyTrendData} type="line" />
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Geographic Distribution & Recent Activity */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Geographic Distribution */}
+          <Card className="bg-slate-800/60 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center">
+                <Globe className="w-5 h-5 mr-2 text-blue-400" />
+                Geographic Distribution
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {geographicData.map((region, index) => (
+                  <div key={index} className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <div 
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: region.color }}
+                      />
+                      <span className="text-gray-300">{region.region}</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <span className="text-white font-semibold">{region.percentage}%</span>
+                      <div className="w-20">
+                        <Progress value={region.percentage} className="h-2" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Recent Activity */}
+          <Card className="bg-slate-800/60 border-slate-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center">
+                <Clock className="w-5 h-5 mr-2 text-orange-400" />
+                Recent Activity
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {recentActivity.map((activity, index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-slate-900/50 rounded-lg">
+                    <div className="flex items-center space-x-3">
+                      <div className={`w-2 h-2 rounded-full ${
+                        activity.type === 'positive' ? 'bg-green-400' :
+                        activity.type === 'negative' ? 'bg-red-400' : 'bg-yellow-400'
+                      }`} />
+                      <div>
+                        <p className="text-white text-sm font-medium">{activity.action}</p>
+                        <p className="text-gray-400 text-xs">{activity.platform}</p>
+                      </div>
+                    </div>
+                    <span className="text-gray-400 text-xs">{activity.time}</span>
+                  </div>
+                ))}
+              </div>
             </CardContent>
           </Card>
         </div>
@@ -141,43 +235,55 @@ const Dashboard = () => {
         <Card className="bg-slate-800/60 border-slate-700">
           <CardHeader>
             <div className="flex items-center justify-between">
-              <CardTitle className="text-white">Platform Performance</CardTitle>
+              <CardTitle className="text-white">Platform Performance Details</CardTitle>
               <Button variant="outline" size="sm" className="border-slate-600 text-gray-300">
-                View Details
+                View Analytics
                 <ArrowUpRight className="w-4 h-4 ml-1" />
               </Button>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {visibilityData.map((platform, index) => (
-                <div key={index} className="flex items-center justify-between p-4 bg-slate-900/50 rounded-lg">
-                  <div className="flex items-center space-x-4">
-                    <div 
-                      className="w-4 h-4 rounded-full"
-                      style={{ backgroundColor: platform.color }}
-                    />
-                    <div>
+                <div key={index} className="bg-slate-900/50 p-4 rounded-lg">
+                  <div className="flex items-center justify-between mb-3">
+                    <div className="flex items-center space-x-3">
+                      <div 
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: platform.color }}
+                      />
                       <h4 className="text-white font-semibold">{platform.name}</h4>
-                      <p className="text-gray-400 text-sm">AI Language Model</p>
+                    </div>
+                    <Badge className="bg-slate-700 text-gray-300">
+                      {platform.score}%
+                    </Badge>
+                  </div>
+                  
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Citations</span>
+                      <span className="text-white">{Math.floor(platform.score / 10) * 3}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Mentions</span>
+                      <span className="text-white">{Math.floor(platform.score / 5) * 2}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-gray-400">Trend</span>
+                      <span className={`${platform.score > 70 ? 'text-green-400' : 'text-yellow-400'}`}>
+                        {platform.score > 70 ? '↗ Growing' : '→ Stable'}
+                      </span>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-4">
-                    <div className="text-right">
-                      <div className="text-white font-bold">{platform.score}%</div>
-                      <div className="text-gray-400 text-xs">Visibility</div>
-                    </div>
-                    <div className="w-20">
-                      <Progress value={platform.score} className="h-2" />
-                    </div>
-                  </div>
+                  
+                  <Progress value={platform.score} className="h-2 mt-3" />
                 </div>
               ))}
             </div>
           </CardContent>
         </Card>
 
-        {/* Improvement Recommendations */}
+        {/* AI Impact Recommendations */}
         <Card className="bg-slate-800/60 border-slate-700">
           <CardHeader>
             <CardTitle className="text-white flex items-center">
