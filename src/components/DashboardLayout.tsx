@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { 
@@ -11,7 +10,8 @@ import {
   User,
   Menu,
   X,
-  LogOut
+  LogOut,
+  BarChart3
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -24,6 +24,7 @@ function DashboardLayout({ children }: { children: React.ReactNode }) {
 
   const navigation = [
     { name: 'Dashboard', href: '/dashboard', icon: LayoutDashboard },
+    { name: 'Comprehensive', href: '/comprehensive-dashboard', icon: BarChart3 },
     { name: 'Reports', href: '/report-details', icon: FileText },
     { name: 'AI Analysis', href: '/ai-report', icon: Bot },
     { name: 'Settings', href: '/settings', icon: Settings },

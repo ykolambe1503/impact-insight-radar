@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -14,10 +13,11 @@ import AIReportAnalysis from "./pages/AIReportAnalysis";
 import NotFound from "./pages/NotFound";
 import Settings from "./pages/Settings";
 import Help from "./pages/Help";
+import ComprehensiveDashboard from '@/pages/ComprehensiveDashboard';
 
 const queryClient = new QueryClient();
 
-const App: React.FC = () => {
+function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -25,9 +25,10 @@ const App: React.FC = () => {
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Layout><LandingPage /></Layout>} />
+            <Route path="/" element={<Index />} />
             <Route path="/login" element={<Layout><Index /></Layout>} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/comprehensive-dashboard" element={<ComprehensiveDashboard />} />
             <Route path="/report-details" element={<Layout><ReportDetails /></Layout>} />
             <Route path="/ai-report" element={<Layout><AIReportAnalysis /></Layout>} />
             <Route path="/settings" element={<Layout><Settings /></Layout>} />
@@ -42,7 +43,7 @@ const App: React.FC = () => {
       </TooltipProvider>
     </QueryClientProvider>
   );
-};
+}
 
 export default App;
 
