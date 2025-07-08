@@ -27,28 +27,28 @@ export const MetricCard = ({
   className
 }: MetricCardProps) => {
   const changeColors = {
-    positive: 'text-green-400',
-    negative: 'text-red-400',
-    neutral: 'text-gray-400'
+    positive: 'text-emerald-400 bg-emerald-400/10',
+    negative: 'text-red-400 bg-red-400/10',
+    neutral: 'text-gray-400 bg-gray-400/10'
   };
 
   return (
-    <Card className={`bg-slate-800/60 border-slate-700 backdrop-blur-sm hover:bg-slate-800/80 transition-all duration-200 ${className || ''}`}>
-      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+    <Card className={`bg-gradient-to-br from-black via-gray-900 to-black border-gray-800 backdrop-blur-xl shadow-2xl shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-300 ${className || ''}`}>
+      <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
         <CardTitle className="text-sm font-medium text-gray-300">{title}</CardTitle>
         <Icon className={`h-5 w-5 ${iconColor}`} />
       </CardHeader>
       <CardContent>
-        <div className="flex items-baseline space-x-2">
-          <div className="text-2xl font-bold text-white">{value}</div>
+        <div className="flex items-baseline space-x-3">
+          <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">{value}</div>
           {change && (
-            <div className={`text-sm ${changeColors[changeType]}`}>
+            <div className={`text-sm px-2 py-1 rounded-full ${changeColors[changeType]}`}>
               {change}
             </div>
           )}
         </div>
         {description && (
-          <p className="text-xs text-gray-400 mt-1">{description}</p>
+          <p className="text-xs text-gray-500 mt-2">{description}</p>
         )}
         {children && (
           <div className="mt-4">

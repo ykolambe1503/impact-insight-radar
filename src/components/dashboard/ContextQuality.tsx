@@ -10,7 +10,8 @@ export const ContextQuality = () => {
       value: '8.7/10',
       description: 'Accuracy measure',
       icon: Shield,
-      color: 'text-green-400',
+      color: 'text-emerald-400',
+      gradient: 'from-emerald-500 to-emerald-600',
       percentage: 87
     },
     {
@@ -19,6 +20,7 @@ export const ContextQuality = () => {
       description: 'AI links back to site',
       icon: Target,
       color: 'text-blue-400',
+      gradient: 'from-blue-500 to-blue-600',
       percentage: 76
     },
     {
@@ -27,6 +29,7 @@ export const ContextQuality = () => {
       description: 'Lead value from mentions',
       icon: Zap,
       color: 'text-purple-400',
+      gradient: 'from-purple-500 to-purple-600',
       percentage: 68
     }
   ];
@@ -41,17 +44,17 @@ export const ContextQuality = () => {
 
   const getHeatmapColor = (value: number, max: number = 100) => {
     const intensity = value / max;
-    if (intensity > 0.8) return 'bg-green-500';
-    if (intensity > 0.6) return 'bg-yellow-500';
-    if (intensity > 0.4) return 'bg-orange-500';
-    return 'bg-red-500';
+    if (intensity > 0.8) return 'bg-gradient-to-r from-emerald-500 to-emerald-600';
+    if (intensity > 0.6) return 'bg-gradient-to-r from-amber-500 to-amber-600';
+    if (intensity > 0.4) return 'bg-gradient-to-r from-orange-500 to-orange-600';
+    return 'bg-gradient-to-r from-red-500 to-red-600';
   };
 
   return (
-    <Card className="bg-slate-800/60 border-slate-700">
+    <Card className="bg-gradient-to-br from-black via-gray-900 to-black border-gray-800 backdrop-blur-xl shadow-2xl shadow-green-500/10">
       <CardHeader>
         <CardTitle className="flex items-center text-white">
-          <Shield className="w-5 h-5 mr-2" />
+          <Shield className="w-5 h-5 mr-2 text-green-400" />
           Context Quality & Impact
         </CardTitle>
       </CardHeader>
@@ -60,20 +63,22 @@ export const ContextQuality = () => {
           {/* Metrics */}
           <div className="space-y-4">
             {metrics.map((metric, index) => (
-              <div key={index} className="bg-slate-900/50 p-4 rounded-lg">
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center space-x-2">
-                    <metric.icon className={`w-5 h-5 ${metric.color}`} />
+              <div key={index} className="bg-gray-900/30 border border-gray-800/50 p-4 rounded-lg hover:bg-gray-900/50 transition-all duration-300">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="p-2 bg-gray-800/50 rounded-full">
+                      <metric.icon className={`w-5 h-5 ${metric.color}`} />
+                    </div>
                     <h4 className="text-white font-medium">{metric.title}</h4>
                   </div>
                   <div className={`text-lg font-bold ${metric.color}`}>
                     {metric.value}
                   </div>
                 </div>
-                <p className="text-xs text-gray-400 mb-2">{metric.description}</p>
-                <div className="w-full bg-gray-700 rounded-full h-2">
+                <p className="text-xs text-gray-400 mb-3">{metric.description}</p>
+                <div className="w-full bg-gray-800/50 rounded-full h-3 shadow-inner">
                   <div 
-                    className={`h-2 rounded-full transition-all duration-1000 ease-out ${getHeatmapColor(metric.percentage)}`}
+                    className={`h-3 rounded-full transition-all duration-1000 ease-out bg-gradient-to-r ${metric.gradient} shadow-lg`}
                     style={{ width: `${metric.percentage}%` }}
                   />
                 </div>
@@ -82,19 +87,19 @@ export const ContextQuality = () => {
           </div>
 
           {/* Heatmap */}
-          <div className="space-y-3">
+          <div className="space-y-4">
             <h4 className="text-white font-medium mb-3">Platform Quality Heatmap</h4>
             {heatmapData.map((item, index) => (
-              <div key={index} className="bg-slate-900/50 p-3 rounded-lg">
-                <div className="flex items-center justify-between mb-2">
-                  <span className="text-gray-300 text-sm">{item.platform}</span>
+              <div key={index} className="bg-gray-900/30 border border-gray-800/50 p-4 rounded-lg hover:bg-gray-900/50 transition-all duration-300">
+                <div className="flex items-center justify-between mb-3">
+                  <span className="text-gray-300 font-medium">{item.platform}</span>
                   <div className="flex space-x-2">
                     <div 
-                      className={`w-4 h-4 rounded ${getHeatmapColor(item.quality * 10)}`}
+                      className={`w-5 h-5 rounded-full ${getHeatmapColor(item.quality * 10)} shadow-lg`}
                       title={`Quality: ${item.quality}/10`}
                     />
                     <div 
-                      className={`w-4 h-4 rounded ${getHeatmapColor(item.attribution)}`}
+                      className={`w-5 h-5 rounded-full ${getHeatmapColor(item.attribution)} shadow-lg`}
                       title={`Attribution: ${item.attribution}%`}
                     />
                   </div>

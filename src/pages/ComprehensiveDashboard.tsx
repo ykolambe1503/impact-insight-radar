@@ -39,7 +39,7 @@ const ComprehensiveDashboard: React.FC = () => {
 
   return (
     <DashboardLayout>
-      <div className="space-y-6 animate-fade-in">
+      <div className="space-y-8 animate-fade-in">
         {/* Header Section */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <BrandVisibilityScore />
@@ -49,11 +49,11 @@ const ComprehensiveDashboard: React.FC = () => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="analysis">Deep Analysis</TabsTrigger>
-            <TabsTrigger value="competitors">Competitors</TabsTrigger>
-            <TabsTrigger value="insights">Insights</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 bg-gray-900/50 border-gray-800 backdrop-blur-sm">
+            <TabsTrigger value="overview" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white">Overview</TabsTrigger>
+            <TabsTrigger value="analysis" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white">Deep Analysis</TabsTrigger>
+            <TabsTrigger value="competitors" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white">Competitors</TabsTrigger>
+            <TabsTrigger value="insights" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500 data-[state=active]:to-blue-500 data-[state=active]:text-white">Insights</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
