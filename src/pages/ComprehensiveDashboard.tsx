@@ -9,7 +9,10 @@ import {
   TrendingUp, 
   TrendingDown, 
   Eye, 
-  Users
+  Users,
+  CheckCircle2,
+  XCircle,
+  Brain
 } from 'lucide-react';
 
 const ComprehensiveDashboard: React.FC = () => {
@@ -57,6 +60,44 @@ const ComprehensiveDashboard: React.FC = () => {
     { name: 'Competitor C', score: 61, change: '+1%', trend: 'up', color: '#ef4444', gradient: 'from-red-500 to-red-600' }
   ];
 
+  const llmMentions = [
+    { 
+      name: 'ChatGPT', 
+      mentioned: true, 
+      confidence: 92,
+      color: '#10b981',
+      description: 'Consistently mentioned in responses'
+    },
+    { 
+      name: 'Claude', 
+      mentioned: true, 
+      confidence: 88,
+      color: '#8b5cf6',
+      description: 'Frequently appears in recommendations'
+    },
+    { 
+      name: 'Gemini', 
+      mentioned: false, 
+      confidence: 0,
+      color: '#ef4444',
+      description: 'Not mentioned in recent queries'
+    },
+    { 
+      name: 'Grok', 
+      mentioned: true, 
+      confidence: 75,
+      color: '#3b82f6',
+      description: 'Occasionally mentioned'
+    },
+    { 
+      name: 'Perplexity', 
+      mentioned: false, 
+      confidence: 0,
+      color: '#ef4444',
+      description: 'Limited visibility'
+    }
+  ];
+
   return (
     <DashboardLayout>
       <div className="space-y-8 animate-fade-in min-h-screen">
@@ -72,73 +113,146 @@ const ComprehensiveDashboard: React.FC = () => {
         {/* Main 2-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Left Column - Main Visibility Score */}
-          <Card className="bg-gradient-to-br from-black via-gray-900 to-black border-gray-800 backdrop-blur-xl shadow-2xl shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-300">
-            <CardHeader className="text-center pb-4">
-              <CardTitle className="text-2xl font-bold text-white flex items-center justify-center">
-                <Eye className="w-8 h-8 mr-3 text-purple-400" />
-                Brand Visibility Score
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="flex flex-col items-center space-y-6">
-              {/* Circular Progress */}
-              <div className="relative w-64 h-64 flex items-center justify-center">
-                <svg className="w-64 h-64 transform -rotate-90" viewBox="0 0 256 256">
-                  {/* Background circle */}
-                  <circle
-                    cx="128"
-                    cy="128"
-                    r="112"
-                    stroke="currentColor"
-                    strokeWidth="8"
-                    fill="transparent"
-                    className="text-gray-800/50"
-                  />
-                  {/* Progress circle */}
-                  <circle
-                    cx="128"
-                    cy="128"
-                    r="112"
-                    stroke="url(#gradient)"
-                    strokeWidth="8"
-                    fill="transparent"
-                    strokeDasharray={`${2 * Math.PI * 112}`}
-                    strokeDashoffset={`${2 * Math.PI * 112 * (1 - visibilityScore / 100)}`}
-                    className="transition-all duration-1000 ease-out drop-shadow-lg"
-                    strokeLinecap="round"
-                  />
-                  <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#8b5cf6" />
-                      <stop offset="50%" stopColor="#3b82f6" />
-                      <stop offset="100%" stopColor="#8b5cf6" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-                
-                {/* Score Text */}
-                <div className="absolute inset-0 flex flex-col items-center justify-center">
-                  <div className="text-6xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
-                    {visibilityScore}
-                  </div>
-                  <div className="text-lg text-gray-400 mt-2">out of 100</div>
-                  <div className="flex items-center mt-3 bg-emerald-400/10 px-3 py-1 rounded-full">
-                    <TrendingUp className="w-4 h-4 text-emerald-400 mr-1" />
-                    <span className="text-emerald-400 font-medium">{change}</span>
+          <div className="space-y-6">
+            <Card className="bg-gradient-to-br from-black via-gray-900 to-black border-gray-800 backdrop-blur-xl shadow-2xl shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-300">
+              <CardHeader className="text-center pb-4">
+                <CardTitle className="text-2xl font-bold text-white flex items-center justify-center">
+                  <Eye className="w-8 h-8 mr-3 text-purple-400" />
+                  Brand Visibility Score
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="flex flex-col items-center space-y-6">
+                {/* Circular Progress */}
+                <div className="relative w-64 h-64 flex items-center justify-center">
+                  <svg className="w-64 h-64 transform -rotate-90" viewBox="0 0 256 256">
+                    {/* Background circle */}
+                    <circle
+                      cx="128"
+                      cy="128"
+                      r="112"
+                      stroke="currentColor"
+                      strokeWidth="8"
+                      fill="transparent"
+                      className="text-gray-800/50"
+                    />
+                    {/* Progress circle */}
+                    <circle
+                      cx="128"
+                      cy="128"
+                      r="112"
+                      stroke="url(#gradient)"
+                      strokeWidth="8"
+                      fill="transparent"
+                      strokeDasharray={`${2 * Math.PI * 112}`}
+                      strokeDashoffset={`${2 * Math.PI * 112 * (1 - visibilityScore / 100)}`}
+                      className="transition-all duration-1000 ease-out drop-shadow-lg"
+                      strokeLinecap="round"
+                    />
+                    <defs>
+                      <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stopColor="#8b5cf6" />
+                        <stop offset="50%" stopColor="#3b82f6" />
+                        <stop offset="100%" stopColor="#8b5cf6" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                  
+                  {/* Score Text */}
+                  <div className="absolute inset-0 flex flex-col items-center justify-center">
+                    <div className="text-6xl font-bold bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text text-transparent">
+                      {visibilityScore}
+                    </div>
+                    <div className="text-lg text-gray-400 mt-2">out of 100</div>
+                    <div className="flex items-center mt-3 bg-emerald-400/10 px-3 py-1 rounded-full">
+                      <TrendingUp className="w-4 h-4 text-emerald-400 mr-1" />
+                      <span className="text-emerald-400 font-medium">{change}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Score Description */}
-              <div className="text-center space-y-2">
-                <p className="text-gray-300 text-lg">
-                  {visibilityScore >= 80 ? 'Excellent' : visibilityScore >= 60 ? 'Good' : visibilityScore >= 40 ? 'Fair' : 'Needs Improvement'} Visibility
-                </p>
-                <p className="text-gray-500 text-sm">
-                  Your brand appears in {visibilityScore}% of relevant AI responses
-                </p>
-              </div>
-            </CardContent>
-          </Card>
+                {/* Score Description */}
+                <div className="text-center space-y-2">
+                  <p className="text-gray-300 text-lg">
+                    {visibilityScore >= 80 ? 'Excellent' : visibilityScore >= 60 ? 'Good' : visibilityScore >= 40 ? 'Fair' : 'Needs Improvement'} Visibility
+                  </p>
+                  <p className="text-gray-500 text-sm">
+                    Your brand appears in {visibilityScore}% of relevant AI responses
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* LLM Mentions Status */}
+            <Card className="bg-gradient-to-br from-black via-gray-900 to-black border-gray-800 backdrop-blur-xl shadow-2xl shadow-blue-500/10 hover:shadow-blue-500/20 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="text-xl font-bold text-white flex items-center">
+                  <Brain className="w-6 h-6 mr-3 text-blue-400" />
+                  AI Model Coverage
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {llmMentions.map((llm, index) => (
+                    <div key={index} className="bg-gray-900/30 border border-gray-800/50 p-4 rounded-lg hover:bg-gray-900/50 transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center space-x-3">
+                          <div className="relative">
+                            {llm.mentioned ? (
+                              <CheckCircle2 className="w-6 h-6 text-emerald-400 drop-shadow-lg" />
+                            ) : (
+                              <XCircle className="w-6 h-6 text-red-400" />
+                            )}
+                            {llm.mentioned && (
+                              <div className="absolute -top-1 -right-1 w-2 h-2 bg-emerald-400 rounded-full animate-ping" />
+                            )}
+                          </div>
+                          <div>
+                            <h4 className="text-white font-semibold text-lg">{llm.name}</h4>
+                            <p className="text-gray-400 text-sm">{llm.description}</p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className={`text-xl font-bold ${llm.mentioned ? 'text-emerald-400' : 'text-red-400'}`}>
+                            {llm.mentioned ? `${llm.confidence}%` : 'No'}
+                          </div>
+                          <div className="text-xs text-gray-400">
+                            {llm.mentioned ? 'Confidence' : 'Mentions'}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {llm.mentioned && (
+                        <div className="mt-3">
+                          <div className="w-full bg-gray-800/50 rounded-full h-2 shadow-inner">
+                            <div 
+                              className="h-2 rounded-full transition-all duration-1000 ease-out bg-gradient-to-r from-emerald-500 to-emerald-400 shadow-lg shadow-emerald-500/30"
+                              style={{ width: `${llm.confidence}%` }}
+                            />
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Summary */}
+                <div className="mt-6 p-4 bg-gray-900/30 border border-gray-800/50 rounded-lg">
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300 font-medium">Coverage Rate</span>
+                    <span className="text-white font-bold text-lg">
+                      {llmMentions.filter(llm => llm.mentioned).length} / {llmMentions.length} Models
+                    </span>
+                  </div>
+                  <div className="w-full bg-gray-800/50 rounded-full h-3 mt-2 shadow-inner">
+                    <div 
+                      className="h-3 rounded-full transition-all duration-1000 ease-out bg-gradient-to-r from-blue-500 to-purple-500 shadow-lg shadow-blue-500/30"
+                      style={{ width: `${(llmMentions.filter(llm => llm.mentioned).length / llmMentions.length) * 100}%` }}
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
           {/* Right Column - Competitors Visibility */}
           <Card className="bg-gradient-to-br from-black via-gray-900 to-black border-gray-800 backdrop-blur-xl shadow-2xl shadow-blue-500/10 hover:shadow-blue-500/20 transition-all duration-300">
