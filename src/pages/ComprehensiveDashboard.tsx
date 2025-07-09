@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { DashboardLayout } from '@/components/layout/DashboardLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
+import { Button } from '@/components/ui/button';
 import { 
   TrendingUp, 
   TrendingDown, 
@@ -12,7 +12,12 @@ import {
   Users,
   CheckCircle2,
   XCircle,
-  Brain
+  Brain,
+  Lightbulb,
+  Target,
+  ArrowRight,
+  FileText,
+  Zap
 } from 'lucide-react';
 
 const ComprehensiveDashboard: React.FC = () => {
@@ -98,6 +103,53 @@ const ComprehensiveDashboard: React.FC = () => {
     }
   ];
 
+  const recommendations = [
+    {
+      title: 'Create AI-Optimized Content',
+      description: 'Develop FAQ pages and structured content that AI models can easily reference and cite.',
+      priority: 'High',
+      impact: 'High',
+      effort: 'Medium',
+      icon: FileText,
+      color: 'from-red-500 to-pink-500'
+    },
+    {
+      title: 'Improve Brand Authority',
+      description: 'Publish thought leadership content and case studies to increase credibility in AI responses.',
+      priority: 'High',
+      impact: 'High',
+      effort: 'High',
+      icon: Target,
+      color: 'from-purple-500 to-indigo-500'
+    },
+    {
+      title: 'Optimize for Citations',
+      description: 'Structure your content with clear headings, bullet points, and quotable statistics.',
+      priority: 'Medium',
+      impact: 'Medium',
+      effort: 'Low',
+      icon: Zap,
+      color: 'from-blue-500 to-cyan-500'
+    },
+    {
+      title: 'Monitor Competitor Strategies',
+      description: 'Analyze what content competitors are creating that gets them mentioned more frequently.',
+      priority: 'Medium',
+      impact: 'Medium',
+      effort: 'Medium',
+      icon: Users,
+      color: 'from-green-500 to-emerald-500'
+    }
+  ];
+
+  const getPriorityColor = (priority: string) => {
+    switch (priority) {
+      case 'High': return 'bg-red-500/20 text-red-400 border-red-500/30';
+      case 'Medium': return 'bg-yellow-500/20 text-yellow-400 border-yellow-500/30';
+      default: return 'bg-green-500/20 text-green-400 border-green-500/30';
+    }
+  };
+
   return (
     <DashboardLayout>
       <div className="space-y-8 animate-fade-in min-h-screen">
@@ -112,8 +164,9 @@ const ComprehensiveDashboard: React.FC = () => {
 
         {/* Main 2-Column Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Column - Main Visibility Score */}
-          <div className="space-y-6">
+          {/* Left Column */}
+          <div className="space-y-8">
+            {/* Brand Visibility Score */}
             <Card className="bg-gradient-to-br from-black via-gray-900 to-black border-gray-800 backdrop-blur-xl shadow-2xl shadow-purple-500/10 hover:shadow-purple-500/20 transition-all duration-300">
               <CardHeader className="text-center pb-4">
                 <CardTitle className="text-2xl font-bold text-white flex items-center justify-center">
@@ -254,79 +307,144 @@ const ComprehensiveDashboard: React.FC = () => {
             </Card>
           </div>
 
-          {/* Right Column - Competitors Visibility */}
-          <Card className="bg-gradient-to-br from-black via-gray-900 to-black border-gray-800 backdrop-blur-xl shadow-2xl shadow-blue-500/10 hover:shadow-blue-500/20 transition-all duration-300">
-            <CardHeader>
-              <CardTitle className="text-2xl font-bold text-white flex items-center">
-                <Users className="w-8 h-8 mr-3 text-blue-400" />
-                Competitive Landscape
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                {competitorScores.map((competitor, index) => (
-                  <div key={index} className="bg-gray-900/30 border border-gray-800/50 p-4 rounded-lg hover:bg-gray-900/50 transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
-                    <div className="flex items-center justify-between mb-3">
-                      <div className="flex items-center space-x-3">
-                        <div 
-                          className={`w-4 h-4 rounded-full bg-gradient-to-r ${competitor.gradient} shadow-lg`}
-                          style={{ boxShadow: `0 0 8px ${competitor.color}40` }}
-                        />
-                        <h4 className="text-white font-semibold text-lg">{competitor.name}</h4>
-                        {index === 0 && (
-                          <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30">
-                            You
+          {/* Right Column */}
+          <div className="space-y-8">
+            {/* Competitors Visibility */}
+            <Card className="bg-gradient-to-br from-black via-gray-900 to-black border-gray-800 backdrop-blur-xl shadow-2xl shadow-blue-500/10 hover:shadow-blue-500/20 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold text-white flex items-center">
+                  <Users className="w-8 h-8 mr-3 text-blue-400" />
+                  Competitive Landscape
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-6">
+                  {competitorScores.map((competitor, index) => (
+                    <div key={index} className="bg-gray-900/30 border border-gray-800/50 p-4 rounded-lg hover:bg-gray-900/50 transition-all duration-300 animate-fade-in" style={{ animationDelay: `${index * 100}ms` }}>
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-3">
+                          <div 
+                            className={`w-4 h-4 rounded-full bg-gradient-to-r ${competitor.gradient} shadow-lg`}
+                            style={{ boxShadow: `0 0 8px ${competitor.color}40` }}
+                          />
+                          <h4 className="text-white font-semibold text-lg">{competitor.name}</h4>
+                          {index === 0 && (
+                            <Badge className="bg-purple-500/20 text-purple-400 border-purple-500/30">
+                              You
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Badge className={`${competitor.trend === 'up' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-red-500/20 text-red-400 border-red-500/30'}`}>
+                            {competitor.trend === 'up' ? <TrendingUp className="w-3 h-3 mr-1" /> : <TrendingDown className="w-3 h-3 mr-1" />}
+                            {competitor.change}
                           </Badge>
-                        )}
+                          <div className="text-white font-bold text-2xl">{competitor.score}</div>
+                        </div>
                       </div>
-                      <div className="flex items-center space-x-2">
-                        <Badge className={`${competitor.trend === 'up' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : 'bg-red-500/20 text-red-400 border-red-500/30'}`}>
-                          {competitor.trend === 'up' ? <TrendingUp className="w-3 h-3 mr-1" /> : <TrendingDown className="w-3 h-3 mr-1" />}
-                          {competitor.change}
-                        </Badge>
-                        <div className="text-white font-bold text-2xl">{competitor.score}</div>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-2">
-                      <div className="w-full bg-gray-800/50 rounded-full h-3 shadow-inner">
-                        <div 
-                          className={`h-3 rounded-full transition-all duration-1000 ease-out bg-gradient-to-r ${competitor.gradient} shadow-lg`}
-                          style={{ 
-                            width: `${competitor.score}%`,
-                            boxShadow: `0 0 8px ${competitor.color}40`
-                          }}
-                        />
-                      </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-gray-400">Visibility Score</span>
-                        <span className="text-white font-medium">{competitor.score}%</span>
+                      
+                      <div className="space-y-2">
+                        <div className="w-full bg-gray-800/50 rounded-full h-3 shadow-inner">
+                          <div 
+                            className={`h-3 rounded-full transition-all duration-1000 ease-out bg-gradient-to-r ${competitor.gradient} shadow-lg`}
+                            style={{ 
+                              width: `${competitor.score}%`,
+                              boxShadow: `0 0 8px ${competitor.color}40`
+                            }}
+                          />
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-400">Visibility Score</span>
+                          <span className="text-white font-medium">{competitor.score}%</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
 
-              {/* Summary Stats */}
-              <div className="mt-8 p-4 bg-gray-900/30 border border-gray-800/50 rounded-lg">
-                <h4 className="text-white font-semibold mb-3">Market Position</h4>
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold text-purple-400">
-                      #{competitorScores.findIndex(c => c.name === (userDetails.brandName || 'Your Brand')) + 1}
+                {/* Summary Stats */}
+                <div className="mt-8 p-4 bg-gray-900/30 border border-gray-800/50 rounded-lg">
+                  <h4 className="text-white font-semibold mb-3">Market Position</h4>
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div>
+                      <div className="text-2xl font-bold text-purple-400">
+                        #{competitorScores.findIndex(c => c.name === (userDetails.brandName || 'Your Brand')) + 1}
+                      </div>
+                      <div className="text-xs text-gray-400">Market Rank</div>
                     </div>
-                    <div className="text-xs text-gray-400">Market Rank</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-blue-400">
-                      {Math.max(0, competitorScores[0].score - competitorScores[1].score)}
+                    <div>
+                      <div className="text-2xl font-bold text-blue-400">
+                        {Math.max(0, competitorScores[0].score - competitorScores[1].score)}
+                      </div>
+                      <div className="text-xs text-gray-400">Point Lead</div>
                     </div>
-                    <div className="text-xs text-gray-400">Point Lead</div>
                   </div>
                 </div>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+
+            {/* Recommendations Section */}
+            <Card className="bg-gradient-to-br from-black via-gray-900 to-black border-gray-800 backdrop-blur-xl shadow-2xl shadow-green-500/10 hover:shadow-green-500/20 transition-all duration-300">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold text-white flex items-center">
+                  <Lightbulb className="w-8 h-8 mr-3 text-green-400" />
+                  Improvement Recommendations
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {recommendations.map((rec, index) => (
+                    <div key={index} className="bg-gray-900/30 border border-gray-800/50 p-4 rounded-lg hover:bg-gray-900/50 transition-all duration-300 animate-fade-in group" style={{ animationDelay: `${index * 100}ms` }}>
+                      <div className="flex items-start space-x-3 mb-3">
+                        <div className={`w-10 h-10 rounded-full bg-gradient-to-r ${rec.color} flex items-center justify-center shadow-lg`}>
+                          <rec.icon className="w-5 h-5 text-white" />
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="text-white font-semibold text-lg mb-1">{rec.title}</h4>
+                          <p className="text-gray-400 text-sm leading-relaxed">{rec.description}</p>
+                        </div>
+                        <Badge className={getPriorityColor(rec.priority)}>
+                          {rec.priority}
+                        </Badge>
+                      </div>
+                      
+                      <div className="flex items-center justify-between mt-4">
+                        <div className="flex space-x-4 text-xs">
+                          <div className="flex items-center space-x-1">
+                            <span className="text-gray-500">Impact:</span>
+                            <span className="text-white font-medium">{rec.impact}</span>
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            <span className="text-gray-500">Effort:</span>
+                            <span className="text-white font-medium">{rec.effort}</span>
+                          </div>
+                        </div>
+                        <Button size="sm" className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 group-hover:scale-105 transition-transform">
+                          Apply
+                          <ArrowRight className="w-3 h-3 ml-1" />
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Action Summary */}
+                <div className="mt-6 p-4 bg-gradient-to-r from-green-900/20 to-blue-900/20 border border-green-500/30 rounded-lg">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h4 className="text-white font-semibold">Quick Wins Available</h4>
+                      <p className="text-gray-300 text-sm">
+                        {recommendations.filter(r => r.effort === 'Low').length} low-effort actions could boost your score by 15-20 points
+                      </p>
+                    </div>
+                    <Button className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700">
+                      Start Now
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </DashboardLayout>
