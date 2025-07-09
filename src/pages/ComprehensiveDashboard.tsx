@@ -33,6 +33,7 @@ import { PromptInsights } from '@/components/dashboard/PromptInsights';
 import { TimeSeriesTrends } from '@/components/dashboard/TimeSeriesTrends';
 import { AlertsRecommendations } from '@/components/dashboard/AlertsRecommendations';
 import { UsageModelCoverage } from '@/components/dashboard/UsageModelCoverage';
+import { ScanResults } from '@/components/dashboard/ScanResults';
 
 const ComprehensiveDashboard: React.FC = () => {
   const [selectedTimeRange, setSelectedTimeRange] = useState('7d');
@@ -40,11 +41,9 @@ const ComprehensiveDashboard: React.FC = () => {
   return (
     <DashboardLayout>
       <div className="space-y-8 animate-fade-in">
-        {/* Header Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <BrandVisibilityScore />
-          <ShareOfVoice />
-          <RealTimeAlerts />
+        {/* Header Section with Scan Results */}
+        <div className="grid grid-cols-1 gap-6">
+          <ScanResults />
         </div>
 
         {/* Main Content Tabs */}
